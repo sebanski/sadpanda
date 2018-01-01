@@ -1,0 +1,55 @@
+#!/bin/bash
+#################################################################################
+#--------------------------------------------------------------------------------
+#
+# sadpanda-shell - interface into the basic blockchain encrypted object datastore
+#   🐼 💦  - MADE IN COLORADO - By: Alex Balzer
+#
+#                  ✌️✌🏻✌🏼✌🏽✌🏾✌🏿
+#
+#--------------------------------------------------------------------------------
+#################################################################################
+
+TODO="
+ - implement this shell at a later time. it is the nosql like interface, using ipython....
+"
+
+FILEPATH=dirname $(pwd)
+PYTHON_EXE=$(which python)
+
+# TODO: start the sadpanda daemon if it hasnt been started already. wait to connect. then enter session
+
+python_imports="
+from structs.processor import Processor
+
+blockchain = Processor().load()
+
+# TODO: user can add database to use and go from there.
+
+s = r'''
+basic block chain database/algorithm.
+
+     __     __
+    /  \ ^ /  \
+    \ /  |  \ /
+     | . | . |
+      \__A__/
+.|.   /  |  \   .|.
+  \+<|   |   |>+/
+      \ /|\ /
+       V===V
+       |   |
+   ___/     \___
+				 
+		 sadpanda
+
+by: alex balzer
+'''
+
+# XXX: hacking. add any other data to load into your shell session here...
+
+print(s)
+"
+
+$PYTHON_EXE -i $python_imports --config-file $FILEPATH/conf/sadpanda.yml  # add all the base objects into memory with the file then enter an ipython shell.
+

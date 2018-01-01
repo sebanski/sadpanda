@@ -1,0 +1,14 @@
+[Unit]
+Description=SadPanda a blockchain document store
+After=auditd.service systemd-user-sessions.service time-sync.target
+
+[Service]
+#EnvironmentFile=/etc/sysconfig/crond
+User=sadpanda
+Group=sadpanda
+ExecStart=sadpanda --config-file /opt/sadpanda/sadpanda/conf/sadpanda.yml
+#ExecReload=/bin/kill -HUP $MAINPID
+#KillMode=process
+
+[Install]
+WantedBy=multi-user.target

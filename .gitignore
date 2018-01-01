@@ -1,0 +1,12 @@
+log/
+data/
+.vagrant/
+*.ev
+*.evk
+*.pyc
+*.pyo
+__pycache__/
+conf/
+*.swp
+.docker/
+

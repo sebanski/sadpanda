@@ -1,0 +1,6 @@
+---
+# vars file for baallezx.sadpanda
+sadpanda_version: 0.0.1
+sadpanda_host: 98.98.1.97
+sadpanda_port: 645
+sadpanda_url: "http://{{sadpanda_host}}:{{sadpanda_port}}/sadpanda/sadpanda-{{sadpanda_version}}.tar.gz"

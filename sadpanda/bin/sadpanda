@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+# the base running script for the sadpanda daemon.
+echo "
+basic block chain object database/algorithm.
+
+     __     __
+    /  \ ^ /  \
+    \ /  |  \ /
+     | . | . |
+      \__A__/
+.||   /  |  \   ||.
+  \+<|   |   |>+/
+      \ /|\ /
+       V===V
+       |   |
+   ___/     \___
+
+     sadpanda
+"
+
+FILEPATH=dirname $(pwd)
+PYTHON_EXE=$(which python)
+
+SADPANDA_CONFIG="conf/sadpanda.yml"
+
+$PYTHON_EXE $FILEPATH/main.py --config-file $FILEPATH/$SADPANDA_CONFIG

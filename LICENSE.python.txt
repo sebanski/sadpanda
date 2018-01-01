@@ -1,0 +1,14 @@
+# Copyright (c) 2017 Alex Balzer. All rights reserved.
+#
+# License:
+#   Python Software Foundation License version 2
+#
+# See the file "LICENSE" for terms & conditions for usage, and a DISCLAIMER OF
+# ALL WARRANTIES.
+#
+# This Baseconv distribution contains no GNU General Public Licensed (GPLed)
+# code so it may be used in proprietary projects just like prior ``baseconv``
+# distributions.
+#
+# All trademarks referenced herein are property of their respective holders.
+#

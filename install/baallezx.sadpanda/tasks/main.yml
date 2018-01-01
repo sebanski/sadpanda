@@ -1,0 +1,124 @@
+---
+# TODO: finish and debug  baallezx.sadpanda
+- name: "create group"
+  group:
+    name: sadpanda
+
+- name: "create user"
+  user:
+    name: sadpanda
+    group: sadpanda
+
+- name: "create home dir"
+  file:
+    name: "/opt/sadpanda"
+    state: directory
+    user: sadpanda
+    group: sadpanda
+
+- name: "create config dir"
+  file:
+    name: "/etc/sadpanda.d"
+    state: directory
+    user: sadpanda
+    group: sadpanda
+
+- name: "download bits..."
+  url: 
+    src: "{{sadpanda_url}}"
+    dest: "/opt/sadpanda/"
+
+- name: "untar package"
+  unarchive:
+    name: "/opt/sadpanda/sapdnada-{{sadpanda_version}}.tar.gz"
+    mode: "tar"
+
+- name: "remove tarball"
+  file:
+    name: "/opt/sadpanda/sapdnada-{{sadpanda_version}}.tar.gz"
+    mode: "delete"
+
+- name: "move keygen"
+  mv:
+    src: /opt/sadpanda/sadpanda/keygen.py
+    dest: /etc/sadpanda.d/
+    user: sadpanda
+    group: sadpanda
+
+- name: "gen"
+  become: yes
+  become_user: sadpanda
+  shell: "/usr/bin/python /etc/sadpanda.d/keygen.py --num-chars=257654 >> /etc/sadpanda.d/poppyfarms.ve"
+
+- name: "get yum package {{item}}"
+  become: yes
+  become_user: root
+  yum: 
+    name: {{item}}
+#    state: install
+  with_items:
+    - "epel-release"
+    - "python-pip"
+    - "libsnappy" # TODO: make sure this is the correct library version
+
+- name: "get virtualenv"
+  become: yes
+  become_user: root
+  pip:
+    name: virtualenv
+
+- name: "setup the env"
+  become: yes
+  become_user: sadpanda
+  shell: "virtualenv /opt/sadpanda/"
+
+- name: "source the env"
+  become: yes
+  become_user: sadpanda
+  shell: "source /opt/sadpanda/bin/activate"
+
+- name: "get libs"
+  become: yes
+  become_user: sadpanda
+  pip:
+    name: {{item}}
+  with_items:
+    - pycrypto
+    - python-snappy
+
+- name: "install src"
+  become: yes
+  become_user: sadpanda
+  shell: "pip install /opt/sadpanda/."
+
+- name: "chmod executables"
+  become: yes
+  become_user: sadpanda
+  shell: "chmod +x {{item}}"
+  with_items:
+    - "/opt/sadpanda/sadpanda/bin/sadpanda"
+    - "/opt/sadpanda/sadpanda/bin/sadpanda-shell"
+
+- name: "gen"
+  become: yes
+  become_user: root
+  shell: "/usr/bin/python /etc/sadpanda.d/keygen.py --num-chars=257654 >> /opt/sadpanda/sadpanda/blockchain.evk"
+
+- name: "add project to path"
+  become: yes
+  become_user: root
+  shell: "export PATH=$PATH:/opt/sadpanda/sadpanda/bin"
+
+- name: "make the service template file"
+  become: yes
+  become_user: root
+  template:
+    src: "templates/sadpanda.service.j2"
+    dest: "/usr/lib/systemd/system/sadpanda.service"
+
+- name: "start the sadpanda service"
+  become: yes
+  become_user: root
+  service:
+    name: sadpanda
+    status: started

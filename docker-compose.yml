@@ -1,0 +1,19 @@
+version: "2"
+services:
+  db0:
+    image: baallezx/sadpanda
+    ports:
+      - "9871:9871"
+  db1:
+    image: baallezx/sadpanda
+    ports:
+      - "9872:9872"
+  db2:
+    image: baallezx/sadpanda
+    ports:
+      - "9873:9873"
+  db3:
+    image: baallezx/sadpanda
+    ports:
+      - "9874:9874"
+
