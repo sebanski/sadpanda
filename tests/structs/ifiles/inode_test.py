@@ -1,9 +1,11 @@
 '''
 test sute for sadpanda/structs/ifiles/inode.py
 '''
+from __future__ import absolute_import
+
 import pytest
 
-from structs.ifiles.inode import iNode
+from sadpanda.structs.ifiles.inode import iNode
 
 def before_test():
 	# setup mock args, mock objects if needed
