@@ -8,6 +8,10 @@ setup(
 		author = "Alex Balzer",
 		author_email = "zabbal22@gmail.com",
 		license = "MIT",
-		packages = find_packages(), # ["sadpanda"], # find_packages()
-		zip_safe = False
+		packages = find_packages("sadpanda"), # ["sadpanda"], # find_packages()
+		package_dir={'': 'sadpanda'},
+		include_package_data=True,
+		zip_safe = False,
+    	setup_requires=['pytest-runner'],
+    	tests_require=['pytest'],
 )

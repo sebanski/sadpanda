@@ -9,4 +9,9 @@ __pycache__/
 conf/
 *.swp
 .docker/
+*.egg-info
+.eggs/
+.cache/
+.DS_Store/
+.tox/
 

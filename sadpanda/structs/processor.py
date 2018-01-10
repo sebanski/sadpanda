@@ -20,13 +20,11 @@ by: alex balzer
 import pickle
 import os
 import logging
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import threading
 
 from icrypt.aes import iAES # TODO: remove import
 from structs.datastore import DataStore
 from server.distribution import DistributionManager
-from server.server import iHTTPServer
 from structs.queueing import QueueingSystem
 from structs.ledger import Ledger
 
@@ -38,18 +36,10 @@ class Processor(object):
 
 	for the time being this will be the base blockchain item
 	'''
-	def __init__(self, start_value, key, args, user_inflation=None):
+	def __init__(self, start_value, key, args):
 		# TODO: this is a big one as it basically will invent the market. if you use this library for that kind of thing.
 		self.args = args
 		self.queueing_system = QueueingSystem(args)
-		if user_inflation != None:
-			if isinstance(user_inflation, int):
-				# create an inflation chain to stimulate this abstraction.
-				pass
-			elif isinstance(user_inflation, float):
-				pass
-			elif isinstance(user_inflation, complex):
-				pass
 		self.datastore = self.initialize_blockchain()
 		ledger = self.create_ledger(start_value, key, args)
 		self.store_ledger(ledger)
@@ -90,11 +80,17 @@ class Processor(object):
 		self.datastore.add_item(ledger)
 
 	def save_datastore(self, filename):
-		if not os.path.exists(filename):
-			os.mkdir("data")
-		pickle.dump(self, open(filename, 'ab'))
+		# TODO: this needs a lot of work.
+		#if not os.path.isdir(filename):
+		#	os.mkdir("data")
+		try:
+			pickle.dump(self, open(filename, 'ab'))
+		except:
+			directory_name = filename.split('/')
+			directory_name.remove('')
+			logger.error("Directory '%s' does not exist! Please create this directory before you can run this application." % directory_name[:-1])
 
-	def run_server(self, args, server_class=HTTPServer, handler_class=iHTTPServer): #, hostname='', port=80):
+	def run_server(self, args): #, hostname='', port=80):
 		'''
 		Should the processor control the http server? or maybe just launch it in the background.
 		'''
@@ -102,11 +98,6 @@ class Processor(object):
 		self.hostname = args.hostname
 		self.port = args.port
 		self.server_threads = args.server_threads
-		self.server = iHTTPServer(self.hostname, self.port, HTTPServer)
-		server_address = (hostname, port)
-		httpd = server_class(server_address, handler_class) # this.server )
-		logger.info('Starting server at http://%s:%s with number of threads=%s'%(hostname, str(port), str(self.server_threads)))
-		httpd.serve_forever()
 
 	def _run_server(self, args):
 		self.server_threads = []

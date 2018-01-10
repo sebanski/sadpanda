@@ -24,7 +24,7 @@ import logging
 
 from Crypto.Cipher import AES
 
-from base import Base
+from icrypt.base import Base
 
 # NOTE: this is my first crack at the encryption item for a processor. 
 # 1.) I am sure it is littered with bugs and vulnerabilities, especially with saving salt in memory and storing the keys in an external application

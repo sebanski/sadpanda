@@ -24,4 +24,4 @@ PYTHON_EXE=$(which python)
 
 SADPANDA_CONFIG="conf/sadpanda.yml"
 
-$PYTHON_EXE $FILEPATH/main.py --config-file $FILEPATH/$SADPANDA_CONFIG
+$PYTHON_EXE $FILEPATH/sadpanda.py --config-file $FILEPATH/$SADPANDA_CONFIG

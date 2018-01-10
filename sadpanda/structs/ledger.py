@@ -21,6 +21,20 @@ from icrypt.aes import iAES
 
 logger = logging.getLogger(__name__)
 
+# TODO: you need to add a ledger counter to handle keeping track of all ledgers that enter the system.
+class LedgerCounter(object):
+	'''
+	keeps track of all ledgers that enter the system.
+	'''
+	def __init__(self, start_value=0):
+		self.current_value = start_value
+
+	def add_ledger(self):
+		self.current_value += 1
+
+	def remove_ledger(self):
+		self.current_value -= 1
+
 class Ledger(object):
 	'''
 	a ledger is a single item in the datastore
@@ -48,18 +62,4 @@ class Ledger(object):
 		# TODO: implement this feature.....
 		return True
 
-
-# TODO: you need to add a ledger counter to handle keeping track of all ledgers that enter the system.
-class LedgerCounter(object):
-	'''
-	keeps track of all ledgers that enter the system.
-	'''
-	def __init__(self, start_value=0):
-		self.current_value = start_value
-
-	def add_ledger(self):
-		self.current_value += 1
-
-	def remove_ledger(self):
-		self.current_value -= 1
 

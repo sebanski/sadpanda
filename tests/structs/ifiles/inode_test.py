@@ -9,12 +9,12 @@ def before_test():
 	# setup mock args, mock objects if needed
 	pass
 
-def test__init__(data, sibling_nodes[], key=None):
+def test__init__(data, sibling_nodes=[], key=None):
 	# CASE 1
 	inode = iNode("here is some random data")
 	assert inode.files == {}
 	assert inode.data == "here is some random data"
-	assert inode.sibling_nodes = []
+	assert inode.sibling_nodes == []
 	assert inode.key == None
 	# TODO: add all transaction methods in here.
 
@@ -62,7 +62,7 @@ def test_generate_files(self, args):
 		file_begin = 0
 		file_end = args.max_file_length
 		for i in range(iterations):
-			new_data = [file_begin:file_end]
+			new_data = "V" * file_end - file_begin # [file_begin:file_end]
 			# TODO: implement a filename_generator for this library to use
 			filename = "something-%s" % str(i)
 			self.write(new_data, filename, args)
@@ -77,3 +77,4 @@ def test_generate_files(self, args):
 		# TODO: implemtn filenaming machine
 		filename = "something"
 		self.write(self.data, filename, args)
+
