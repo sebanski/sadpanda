@@ -22,9 +22,9 @@ import logging
 
 # from boto import s3
 
-from icrypt.aes import iAES
-from structs.ifiles.compressor import SnappyCompressor, SnappyDecompressor
-from structs.datastore import DataStore
+from sadpanda.icrypt.aes import iAES
+from sadpanda.structs.ifiles.compressor import SnappyCompressor, SnappyDecompressor
+from sadpanda.structs.datastore import DataStore
 
 logger = logging.getLogger(__name__)
 

@@ -24,7 +24,7 @@ import logging
 import urllib3
 
 # you can probably delete this iNode and just use the processors information. cut out the complexity
-from structs.ifiles.inode import iNode
+from sadpanda.structs.ifiles.inode import iNode
 
 logger = logging.getLogger(__name__)
 

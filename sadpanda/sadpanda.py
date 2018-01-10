@@ -28,9 +28,9 @@ import argparse
 from sys import path
 import os
 
-from icrypt.aes import iAES
-from structs.processor import Processor
-from parser.config import ConfigParser
+from sadpanda.icrypt.aes import iAES
+from sadpanda.structs.processor import Processor
+from sadpanda.parser.config import ConfigParser
 
 # NOTE: super naive. but just getting shit going.
 # TODO: create a better encryption method. make it a class so it works < forward -> encrypt , backwards <- decrypt >

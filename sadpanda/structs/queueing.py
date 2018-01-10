@@ -17,9 +17,9 @@ the queuing system for disk writes and atomicity.
 '''
 import logging
 
-from structs.datastore import DataStore
-from structs.ledger import Ledger
-from structs.ifiles.inode import iNode
+from sadpanda.structs.datastore import DataStore
+from sadpanda.structs.ledger import Ledger
+from sadpanda.structs.ifiles.inode import iNode
 
 logger = logging.getLogger(__name__)
 

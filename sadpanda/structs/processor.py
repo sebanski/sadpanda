@@ -22,11 +22,11 @@ import os
 import logging
 import threading
 
-from icrypt.aes import iAES # TODO: remove import
-from structs.datastore import DataStore
-from server.distribution import DistributionManager
-from structs.queueing import QueueingSystem
-from structs.ledger import Ledger
+from sadpanda.icrypt.aes import iAES # TODO: remove import
+from sadpanda.structs.datastore import DataStore
+from sadpanda.server.distribution import DistributionManager
+from sadpanda.structs.queueing import QueueingSystem
+from sadpanda.structs.ledger import Ledger
 
 logger = logging.getLogger(__name__)
 
