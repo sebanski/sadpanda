@@ -21,7 +21,7 @@ by: alex balzer
 import os
 from uuid import uuid1
 import logging
-import urllib3
+import urllib
 
 # you can probably delete this iNode and just use the processors information. cut out the complexity
 from sadpanda.structs.ifiles.inode import iNode
@@ -146,7 +146,7 @@ class LogicManager(Manager):
 		# return a list of response metadata nodes.
 		nodes_metadata = []
 		for node in args.p2p_nodes:
-		 	node = Metadata(urllib3.urlopen("http://%s/metadata"%(node)).read())
+		 	node = Metadata(urllib.urlopen("http://%s/metadata"%(node)).read())
 		 	# TOOD: create a route for this. that will just create a Metadata Object store it and send it.
 		return []
 

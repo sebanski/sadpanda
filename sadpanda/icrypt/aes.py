@@ -44,7 +44,7 @@ class iAES(Base):
 		# TODO: delete the below variable as it is unneccassary only the processor should handle the logic for this objects methods.
 		self.encrypted_item = self.encrypt(item, key, self.salt)
 		#self.salt = salt
-		self.store(key)
+		self.key = key
 		# TODO: dont save these values but instead save a new value based on these 2 items.
 
 	def encrypt(self, item, key, salt):
@@ -59,10 +59,6 @@ class iAES(Base):
 		decrypted_item = icrypt_model.decrypt(encrypted_item)
 		logger.info("Successfully decrypted item %s" % self.item_id)
 		return decrypted_item
-
-	def store(self, key):
-		# NOTE: will probaby be depreciated in favor of having the processor handle storage through the DataStore.
-		pass
 
 	def multiple_16(self, item):
 		if len(item) % 16 == 0:
@@ -85,21 +81,16 @@ class iAES(Base):
 			return salt + self.generate_salt()[:16 - len(salt)]
 
 	def check_key(self, key):
-		''' iterate over key until it is a factor of 16 '''
+		# TODO: how will the datastore handle an object that creates a key that is less then 32? If you add the same charact
+		# ERROR: how do you handle keys that are less then 32 in length. 
 		if len(key) > 32:
 			return key[:32]
-		if len(key) < 32 and len(key) > 24:
-			return key[:24]
-		if len(key) < 24 and len(key) > 16:
-			return key[:16]
-		if len(key) < 0:
-			logger.warn("You are using an extremely dangerous plain key... BEWARE.. and dont blame me. see the legal section please.")
-			return "whataterriblekey"
-		if len(key) < 16:
-			# TODO: you should just log an error, and report it back to the user.
-			for i in range(16 - len(key)):
-				key += " "
-				return key
+		elif len(key) == 32:
+			return key
+		else:
+			logger.error("You have placed a key into the system that is less then the required length.")
+			import sys
+			sys.exit()
 
 	def generate_salt(self):
 		# TODO: you need to make sure you know the rules of this method and salt size.

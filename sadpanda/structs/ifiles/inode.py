@@ -167,9 +167,13 @@ class iNode(object):
 	def load_files(self):
 		# TODO: implement a batch file load that will convert the files back into ledgers for the datastore.
 		import os
-		dirs = os.listdir('data/')
-		nodes = [ self.read(i, args) for i in dirs if os.path.isdir(i) ]
-		return nodes
+		if os.path.isdir('data/'):
+			dirs = os.listdir('data/')
+			nodes = [ self.read(i, args) for i in dirs if os.path.isdir(i) ]
+			return nodes
+		else:
+			logger.warn("There does not seem to be a directory dedicated to the datastores files.")
+			return []
 
 	def load_breakpoints(self):
 		import pickle

@@ -30,7 +30,7 @@ from sadpanda.structs.ledger import Ledger
 
 logger = logging.getLogger(__name__)
 
-class Processor(object):
+class Processor(object): # Blockchain
 	'''
     base processor - handles processing ledgers
 
@@ -41,8 +41,9 @@ class Processor(object):
 		self.args = args
 		self.queueing_system = QueueingSystem(args)
 		self.datastore = self.initialize_blockchain()
-		ledger = self.create_ledger(start_value, key, args)
-		self.store_ledger(ledger)
+		if len(self.datastore) == 0:
+			ledger = self.create_ledger(start_value, key, args)
+			self.store_ledger(ledger)
 		# TODO: the processor needs to be spawned into a pseudo infintite object that accepts requests and turns them into ledgers if they fit the bill
 		self.save_datastore(args.datastore)
 		# - now start the server
@@ -51,7 +52,7 @@ class Processor(object):
 		#self.daemonize(args)
 
 	def initialize_blockchain(self):
-		# start the blockchain datastore
+		# TODO: start the blockchain datastore check the filesystem for the blocks
 		return DataStore()
 
 	def load_blockchain(self, args):

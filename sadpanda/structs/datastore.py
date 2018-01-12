@@ -35,6 +35,7 @@ class DataStore(object):
 
 	def get_previous_item(self):
 		return self.datastore[len(self.datastore)-1]
+		# return self.datastore[:-1]
 
 	def check_item(self, item):
 		'''

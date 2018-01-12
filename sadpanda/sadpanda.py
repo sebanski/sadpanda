@@ -35,9 +35,6 @@ from sadpanda.parser.config import ConfigParser
 # NOTE: super naive. but just getting shit going.
 # TODO: create a better encryption method. make it a class so it works < forward -> encrypt , backwards <- decrypt >
 
-def setup_imports():
-	path.append(os.getcwd())
-
 def setup_args():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--encryption-method", default='aes', type=str)
