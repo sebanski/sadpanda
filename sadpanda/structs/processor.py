@@ -25,6 +25,7 @@ import threading
 from sadpanda.icrypt.aes import iAES # TODO: remove import
 from sadpanda.structs.datastore import DataStore
 from sadpanda.server.distribution import DistributionManager
+from sadpanda.server.server import AsyncServer
 from sadpanda.structs.queueing import QueueingSystem
 from sadpanda.structs.ledger import Ledger
 
@@ -39,6 +40,8 @@ class Processor(object): # Blockchain
 	def __init__(self, start_value, key, args):
 		# TODO: this is a big one as it basically will invent the market. if you use this library for that kind of thing.
 		self.args = args
+		self.server = AsyncServer(2828, args)
+		self.distribution_manager = DistributionManager("Please add a server here or delete this variable.", args, self.create_p2p_hash(args.p2p_nodes))
 		self.queueing_system = QueueingSystem(args)
 		self.datastore = self.initialize_blockchain()
 		if len(self.datastore) == 0:
@@ -128,3 +131,10 @@ class Processor(object): # Blockchain
 		self.delete_key(args.keyfile)
 		logger.info("Initializing the main daemon......")
 		self._initialize(args)
+
+	def create_p2p_hash(self, p2p_nodes):
+		''' create a local hash that contains the config value p2p node list. '''
+		p2p_hash = {}
+		for i in range(len(p2p_nodes)):
+			p2p_hash[i] = p2p_nodes[i]
+		return p2p_hash

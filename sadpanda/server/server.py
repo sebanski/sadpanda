@@ -17,13 +17,38 @@ a basic http server for handling transactions
 
 by: alex balzer
 '''
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import socket
 import logging
+
+import asyncio
 
 logger = logging.getLogger(__name__)
 
 # TODO: implement a model class that will adhere to the nosql like document abilities, especially when you wrap this in a ipython shell.
+
+class AsyncServer(object):
+	def __init__(self, port, args):
+		self.port = port
+		#self.start()
+
+	async def process(self, reader, writer):
+		while True:
+			data = await reader.readline()
+			writer.write(data) 
+
+	def start(self):
+		self.loop = asyncio.get_event_loop()
+		self.listener = asyncio.start_server(self.process, host=None, port=self.port)
+		self.loop.run_until_complete(self.listener)
+		self.loop.run_forever()
+
+	def stop(self):
+		self.loop.stop()
+		self.loop.close()
+
+################################################################################################################
+################################################################################################################
+################################################################################################################
 
 # TODO: implement this class, dont go crazy and reinvent the wheel use a well written library to abstract out a lot of these complexities.
 class iBaseServer(object):
@@ -55,23 +80,4 @@ class iBaseServer(object):
 		validate the request, and use a case like structure to solve clients expectations, but also solve hackers conundrum.
 		'''
 		pass
-
-class iHTTPServer(BaseHTTPRequestHandler):
-	def _set_headers(self):
-		self.send_response(200)
-		self.send_header('Content-type', 'text/json')
-		self.end_headers()
-
-	def do_GET(self):
-		self._set_headers()
-		self.wfile.write('{"sadpanda": "a distributed blockchain document store."}')
-
-	def do_HEAD(self):
-		self._set_headers()
-    
-	def do_POST(self):
-		# Doesn't do anything with posted data
-		self._set_headers()
-		self.wfile.write("<html><body><h1>POST!</h1></body></html>")
-
 

@@ -23,3 +23,4 @@ class DataStoreTest(unittest.TestCase):
 
     #def test_has_age_in_dog_years(self):
     #    self.assertEqual(self.person.dog_years, self.person.age / 7)
+

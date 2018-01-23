@@ -45,10 +45,19 @@ class DistributionManager(Manager):
 	that will help break down responsibilities into something the Distribution manager can handle.
 	'''
 	def __init__(self, server, args, p2p_nodes={}):
-		if len(p2p_nodes.keys()) > 0:
-			self.p2p_nodes = p2p_nodes
-		else:
-			self.p2p_nodes = args.p2p_nodes
+		self.server = server # this should be the asyncio server.
+		self.p2p_nodes = p2p_nodes
+		self.listen()
+		self.talk_with_world()
+
+	def listen(self):
+		''' set up the server and listen for incoming connections. '''
+		# self.server.start()
+		pass
+
+	def talk_with_world(self):
+		''' take the p2p_node hash table and go through trying to make a relationship with each server.'''
+		pass
 
 	def reqeust_relationship(self, hostname, port):
 		'''
